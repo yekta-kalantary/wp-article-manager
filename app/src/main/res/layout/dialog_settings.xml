@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layoutDirection="rtl">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="اتصال به وردپرس" android:textSize="20sp" android:textStyle="bold" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:text="برای امنیت، از Application Password وردپرس استفاده کنید؛ نه رمز اصلی حساب." />
+    <EditText android:id="@+id/siteUrl" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:hint="https://example.com" android:inputType="textUri" android:singleLine="true" />
+    <EditText android:id="@+id/username" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="نام کاربری وردپرس" android:inputType="text" android:singleLine="true" />
+    <EditText android:id="@+id/appPassword" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="Application Password" android:inputType="textPassword" android:singleLine="true" />
+</LinearLayout>
