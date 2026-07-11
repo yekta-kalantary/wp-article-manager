@@ -1,0 +1,24 @@
+{
+  "name": "wp-article-manager",
+  "version": "2.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "typecheck": "tsc --noEmit",
+    "prebuild:android": "expo prebuild --platform android --clean"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~57.0.0",
+    "expo-secure-store": "~57.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@types/react": "~19.2.2",
+    "typescript": "~5.9.2"
+  }
+}
