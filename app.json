@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "مدیریت مقالات",
+    "slug": "wp-article-manager",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.yekta.wpmanager",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "backgroundColor": "#1F4B99"
+      }
+    },
+    "plugins": [
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true
+        }
+      ]
+    ]
+  }
+}
