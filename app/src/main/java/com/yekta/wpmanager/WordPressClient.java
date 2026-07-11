@@ -37,6 +37,13 @@ public final class WordPressClient {
         return posts;
     }
 
+    public Post createDraft() throws Exception {
+        JSONObject body = new JSONObject();
+        body.put("title", "");
+        body.put("status", "draft");
+        return parse(new JSONObject(request("POST", "/posts", body.toString())));
+    }
+
     public Post save(Post post) throws Exception {
         JSONObject body = new JSONObject();
         body.put("title", post.title);
