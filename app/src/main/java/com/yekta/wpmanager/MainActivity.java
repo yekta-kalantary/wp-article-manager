@@ -2,7 +2,9 @@ package com.yekta.wpmanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -89,7 +91,7 @@ public final class MainActivity extends Activity {
                 runOnUiThread(() -> {
                     addButton.setEnabled(true);
                     setLoading(false, "ساخت پیش‌نویس ناموفق بود");
-                    toast(error(e));
+                    showCreationError(e);
                 });
             }
         });
@@ -98,10 +100,29 @@ public final class MainActivity extends Activity {
     private void openGutenberg(int postId) {
         SecureStore.Credentials credentials = secureStore.load();
         if (!credentials.isComplete()) { showSettings(); return; }
-        Intent intent = new Intent(this, GutenbergActivity.class);
-        intent.putExtra(GutenbergActivity.EXTRA_SITE_URL, credentials.site);
-        intent.putExtra(GutenbergActivity.EXTRA_POST_ID, postId);
-        startActivity(intent);
+        String base = credentials.site.replaceAll("/+$", "");
+        String url = postId > 0
+            ? base + "/wp-admin/post.php?post=" + postId + "&action=edit"
+            : base + "/wp-admin/post-new.php";
+        try {
+            Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            browser.addCategory(Intent.CATEGORY_BROWSABLE);
+            startActivity(browser);
+        } catch (ActivityNotFoundException e) {
+            Intent fallback = new Intent(this, GutenbergActivity.class);
+            fallback.putExtra(GutenbergActivity.EXTRA_SITE_URL, credentials.site);
+            fallback.putExtra(GutenbergActivity.EXTRA_POST_ID, postId);
+            startActivity(fallback);
+        }
+    }
+
+    private void showCreationError(Exception e) {
+        new AlertDialog.Builder(this)
+            .setTitle("درج مقاله انجام نشد")
+            .setMessage(error(e) + "\n\nمی‌توانی صفحه افزودن وردپرس را مستقیم باز کنی.")
+            .setNegativeButton("بستن", null)
+            .setPositiveButton("باز کردن صفحه افزودن", (dialog, which) -> openGutenberg(0))
+            .show();
     }
 
     private void showSettings() {
